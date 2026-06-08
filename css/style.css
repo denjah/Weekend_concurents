@@ -296,7 +296,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.15;let
 /* ── CARD: BEZEL ─────────────────────────────────────── */
 .card--bezel{will-change:transform}
 .card__shell{padding:6px;border-radius:var(--radius-xl);background:rgba(34,49,82,.04);border:1px solid var(--border-light)}
-.card__core{padding:32px 24px;border-radius:calc(var(--radius-xl) - 6px);background:var(--bg-card-light);
+.card__core{padding:24px;border-radius:calc(var(--radius-xl) - 6px);background:var(--bg-card-light);
   box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.8)}
 .card__title{font-size:18px;margin:16px 0 8px;color:var(--navy-900)}
 .card__text{font-size:15px;line-height:1.7;color:var(--text-on-light-secondary)}
