@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Конкурентный анализ — Weekend Billiard</title>
+  <meta name="description" content="Комплексная маркетинговая стратегия на основе конкурентного анализа для weekend-billiard.ru.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- APP HEADER (fixed)                          -->
+  <!-- ═══════════════════════════════════════════ -->
+  <header class="app-header" id="appHeader">
+    <div class="app-header__left">
+      <img src="logo/logo_V01_horisont.svg" alt="Weekend Billiard" class="app-header__logo" width="160" height="35">
+    </div>
+
+    <!-- Mini KPI Dashboard -->
+    <div class="app-header__kpis" id="headerKpis">
+      <div class="kpi" data-status="behind">
+        <span class="kpi__label">CRO</span>
+        <span class="kpi__value">2<small>/10</small></span>
+        <span class="kpi__dot"></span>
+      </div>
+      <div class="kpi" data-status="behind">
+        <span class="kpi__label">SEO</span>
+        <span class="kpi__value">4<small>/10</small></span>
+        <span class="kpi__dot"></span>
+      </div>
+      <div class="kpi" data-status="behind">
+        <span class="kpi__label">Контент</span>
+        <span class="kpi__value">3<small>/10</small></span>
+        <span class="kpi__dot"></span>
+      </div>
+      <div class="kpi" data-status="level">
+        <span class="kpi__label">Бренд</span>
+        <span class="kpi__value">5<small>/10</small></span>
+        <span class="kpi__dot"></span>
+      </div>
+    </div>
+
+    <div class="app-header__right">
+      <!-- Analysis Date -->
+      <div class="analysis-date" id="analysisDate">
+        <button class="analysis-date__trigger" id="analysisDateTrigger" aria-expanded="false">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span>08.06.2025</span>
+          <svg class="analysis-date__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="analysis-date__dropdown" id="analysisDateDropdown">
+          <div class="analysis-date__title">История анализов</div>
+          <div class="analysis-date__item analysis-date__item--active">
+            <span class="analysis-date__item-date">08.06.2025</span>
+            <span class="analysis-date__tag">текущий</span>
+          </div>
+          <div class="analysis-date__item">
+            <span class="analysis-date__item-date">15.05.2025</span>
+            <span class="analysis-date__item-changes">+12 параметров</span>
+          </div>
+          <div class="analysis-date__item">
+            <span class="analysis-date__item-date">22.04.2025</span>
+            <span class="analysis-date__item-changes">+8 параметров</span>
+          </div>
+          <div class="analysis-date__item">
+            <span class="analysis-date__item-date">10.03.2025</span>
+            <span class="analysis-date__item-changes">первичный</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Console Toggle -->
+      <button class="console-toggle" id="consoleToggle" aria-label="Открыть консоль">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 3v18M3 12h18M8 8h.01M16 8h.01M8 16h.01M16 16h.01"/></svg>
+        <span>Консоль</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CONSOLE PANEL (right side)                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <aside class="console-panel" id="consolePanel" aria-label="Консоль анализа">
+    <div class="console-panel__header">
+      <h3>Консоль анализа</h3>
+      <button class="console-panel__close" id="consolePanelClose" aria-label="Закрыть консоль">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="console-panel__body">
+      <!-- CRO Group -->
+      <div class="param-group" data-status="behind">
+        <button class="param-group__header" aria-expanded="true">
+          <span class="param-group__icon">🛠</span>
+          <span class="param-group__title">CRO (Конверсия)</span>
+          <span class="param-group__score">2/10</span>
+          <span class="param-group__status-dot"></span>
+          <svg class="param-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="param-group__content">
+          <div class="param-row" data-status="missing">
+            <span class="param-row__name">Купить в 1 клик</span>
+            <span class="param-row__value">✕ отсутствует</span>
+          </div>
+          <div class="param-row" data-status="missing">
+            <span class="param-row__name">Онлайн-чат</span>
+            <span class="param-row__value">✕ отсутствует</span>
+          </div>
+          <div class="param-row" data-status="missing">
+            <span class="param-row__name">Рассрочка</span>
+            <span class="param-row__value">✕ отсутствует</span>
+          </div>
+          <div class="param-row" data-status="missing">
+            <span class="param-row__name">Конфигуратор</span>
+            <span class="param-row__value">✕ отсутствует</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO Group -->
+      <div class="param-group" data-status="behind">
+        <button class="param-group__header" aria-expanded="true">
+          <span class="param-group__icon">💻</span>
+          <span class="param-group__title">SEO</span>
+          <span class="param-group__score">4/10</span>
+          <span class="param-group__status-dot"></span>
+          <svg class="param-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="param-group__content">
+          <div class="param-row" data-status="warning">
+            <span class="param-row__name">robots.txt</span>
+            <span class="param-row__value">⚠ закрыт для ?</span>
+          </div>
+          <div class="param-row" data-status="missing">
+            <span class="param-row__name">Schema.org</span>
+            <span class="param-row__value">✕ отсутствует</span>
+          </div>
+          <div class="param-row" data-status="ok">
+            <span class="param-row__name">H1 тег</span>
+            <span class="param-row__value">✓ настроен</span>
+          </div>
+          <div class="param-row" data-status="warning">
+            <span class="param-row__name">Вес страницы</span>
+            <span class="param-row__value">908 КБ ⚠</span>
+          </div>
+          <div class="param-row" data-status="missing">
+            <span class="param-row__name">AggregateRating</span>
+            <span class="param-row__value">✕ отсутствует</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Group -->
+      <div class="param-group" data-status="behind">
+        <button class="param-group__header" aria-expanded="true">
+          <span class="param-group__icon">📹</span>
+          <span class="param-group__title">Контент</span>
+          <span class="param-group__score">3/10</span>
+          <span class="param-group__status-dot"></span>
+          <svg class="param-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="param-group__content">
+          <div class="param-row" data-status="missing">
+            <span class="param-row__name">Видео на сайте</span>
+            <span class="param-row__value">0 роликов</span>
+          </div>
+          <div class="param-row" data-status="warning">
+            <span class="param-row__name">YouTube канал</span>
+            <span class="param-row__value">12 роликов</span>
+          </div>
+          <div class="param-row" data-status="missing">
+            <span class="param-row__name">Медиа в карточках</span>
+            <span class="param-row__value">✕ нет</span>
+          </div>
+          <div class="param-row" data-status="ok">
+            <span class="param-row__name">Тур. кейсы</span>
+            <span class="param-row__value">✓ BetBoom CL</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand Group -->
+      <div class="param-group" data-status="level">
+        <button class="param-group__header" aria-expanded="true">
+          <span class="param-group__icon">🎯</span>
+          <span class="param-group__title">Позиционирование</span>
+          <span class="param-group__score">5/10</span>
+          <span class="param-group__status-dot"></span>
+          <svg class="param-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="param-group__content">
+          <div class="param-row" data-status="warning">
+            <span class="param-row__name">Текущий слоган</span>
+            <span class="param-row__value">⚠ B2B-фокус</span>
+          </div>
+          <div class="param-row" data-status="ok">
+            <span class="param-row__name">Эксклюзивы</span>
+            <span class="param-row__value">✓ Rasson, Dynamic</span>
+          </div>
+          <div class="param-row" data-status="ok">
+            <span class="param-row__name">Своя доставка</span>
+            <span class="param-row__value">✓ есть</span>
+          </div>
+          <div class="param-row" data-status="ok">
+            <span class="param-row__name">Фабричный монтаж</span>
+            <span class="param-row__value">✓ есть</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Market Group -->
+      <div class="param-group" data-status="behind">
+        <button class="param-group__header" aria-expanded="false">
+          <span class="param-group__icon">🗂</span>
+          <span class="param-group__title">Доля рынка</span>
+          <span class="param-group__score">—</span>
+          <span class="param-group__status-dot"></span>
+          <svg class="param-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="param-group__content" style="display:none">
+          <div class="param-row" data-status="warning">
+            <span class="param-row__name">vs Бильярд.ру</span>
+            <span class="param-row__value">↑ потенциал</span>
+          </div>
+          <div class="param-row" data-status="warning">
+            <span class="param-row__name">vs Бильярд №1</span>
+            <span class="param-row__value">↑ потенциал</span>
+          </div>
+          <div class="param-row" data-status="warning">
+            <span class="param-row__name">vs Ф-ка Старт</span>
+            <span class="param-row__value">↑ потенциал</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- DOT NAVIGATION                              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <nav class="dot-nav" id="dotNav" aria-label="Навигация по разделам">
+    <a href="#hero" class="dot-nav__item active" data-section="hero">
+      <span class="dot-nav__dot"></span><span class="dot-nav__label">Главная</span></a>
+    <a href="#repositioning" class="dot-nav__item" data-section="repositioning">
+      <span class="dot-nav__dot"></span><span class="dot-nav__label">Позиционирование</span></a>
+    <a href="#cro" class="dot-nav__item" data-section="cro">
+      <span class="dot-nav__dot"></span><span class="dot-nav__label">CRO</span></a>
+    <a href="#content-strategy" class="dot-nav__item" data-section="content-strategy">
+      <span class="dot-nav__dot"></span><span class="dot-nav__label">Контент</span></a>
+    <a href="#seo" class="dot-nav__item" data-section="seo">
+      <span class="dot-nav__dot"></span><span class="dot-nav__label">SEO</span></a>
+    <a href="#matrix" class="dot-nav__item" data-section="matrix">
+      <span class="dot-nav__dot"></span><span class="dot-nav__label">Матрица</span></a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- MAIN CONTENT                                -->
+  <!-- ═══════════════════════════════════════════ -->
+  <main class="main-content" id="mainContent">
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero__mesh" aria-hidden="true"></div>
+      <div class="hero__content">
+        <span class="badge reveal">Конкурентный анализ&ensp;•&ensp;2025</span>
+        <h1 class="hero__title reveal">
+          Маркетинговая стратегия<br>
+          <span class="hero__title-accent">на основе конкурентного анализа</span>
+        </h1>
+        <p class="hero__subtitle reveal">weekend-billiard.ru</p>
+      </div>
+      <div class="hero__scroll-hint reveal" aria-hidden="true">
+        <span>Листайте вниз</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
+    </section>
+
+    <!-- SECTION 1: ПЕРЕПОЗИЦИОНИРОВАНИЕ -->
+    <section id="repositioning" class="section section--light">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="eyebrow">01 — Позиционирование</span>
+          <h2 class="section__title">Перепозиционирование</h2>
+          <p class="section__lead">от «Поставщика» к «Стандарту Гарантии»</p>
+        </div>
+        <p class="section__text reveal">
+          Текущий слоган («Крупнейший поставщик...») смещает акцент в сторону холодного B2B-опта.
+          В розничном и премиум-сегментах (D2C) нужно перейти к&nbsp;концепции:
+        </p>
+        <blockquote class="callout reveal">
+          <span class="callout__icon">💡</span>
+          <p>«Weekend — бильярдный стандарт без компромиссов и&nbsp;отмен»</p>
+        </blockquote>
+        <div class="bento-grid bento-grid--2">
+          <div class="card card--bezel reveal">
+            <div class="card__shell"><div class="card__core">
+              <span class="pill pill--red">vs «Бильярд №1»</span>
+              <h3 class="card__title">Логистическая надёжность</h3>
+              <p class="card__text">На фоне их логистических разрывов и отмен заказов, Weekend должен продвигать оффер:</p>
+              <div class="card__highlight">«Собственная служба доставки и фабричного монтажа. То, что вы видите на сайте — реально зарезервировано на&nbsp;складе под&nbsp;вас»</div>
+            </div></div>
+          </div>
+          <div class="card card--bezel reveal">
+            <div class="card__shell"><div class="card__core">
+              <span class="pill pill--red">vs Luza.ru</span>
+              <h3 class="card__title">Эксклюзивные контракты</h3>
+              <p class="card__text">Пока они выступают как классический посредник, зависимый от фабрик, Weekend бьёт прямыми эксклюзивными контрактами на&nbsp;топ-бренды:</p>
+              <div class="card__brands">
+                <span class="pill pill--outline">Rasson</span>
+                <span class="pill pill--outline">Dynamic Billard</span>
+                <span class="pill pill--outline">Iwan Simonis</span>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CRO -->
+    <section id="cro" class="section section--dark">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="eyebrow eyebrow--light">02 — Конверсия</span>
+          <h2 class="section__title">Продуктовая стратегия и&nbsp;CRO</h2>
+          <p class="section__lead">Оптимизация конверсии сайта</p>
+        </div>
+        <div class="score-block reveal">
+          <div class="score-ring-wrap">
+            <svg class="score-ring" viewBox="0 0 120 120" aria-label="Оценка: 2 из 10">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="6"/>
+              <circle class="score-ring__progress" cx="60" cy="60" r="52" fill="none"
+                      stroke="#EF4444" stroke-width="6" stroke-linecap="round"
+                      stroke-dasharray="326.73" stroke-dashoffset="326.73"
+                      data-target-offset="261.38" transform="rotate(-90 60 60)"/>
+              <text x="60" y="54" text-anchor="middle" fill="#F1F5F9" font-size="32" font-weight="700" font-family="'Intro','Outfit',sans-serif">2</text>
+              <text x="60" y="74" text-anchor="middle" fill="#8BA3C1" font-size="13" font-family="'Plus Jakarta Sans','Outfit',sans-serif">из 10</text>
+            </svg>
+          </div>
+          <div class="score-block__text">
+            <p class="score-block__warning">Маркетинговый бюджет уйдёт впустую, если трафик будет приходить на сайт без базовых триггеров захвата лида.</p>
+            <p class="score-block__caption">Оценка маркетолога — <strong>2 из 10</strong></p>
+          </div>
+        </div>
+        <h3 class="section__subtitle reveal">Внедрение финансовых и конверсионных триггеров</h3>
+        <div class="bento-grid bento-grid--3">
+          <div class="card card--glass reveal">
+            <div class="card__number">01</div>
+            <h4 class="card__title">«Купить в 1&nbsp;клик» и&nbsp;Онлайн-чат</h4>
+            <p class="card__text">Лидеры рынка давно используют Jivo и быстрый заказ. Необходимо внедрить и&nbsp;жёстко связать через n8n с&nbsp;CRM-системой.</p>
+          </div>
+          <div class="card card--glass reveal">
+            <div class="card__number">02</div>
+            <h4 class="card__title">Программы рассрочки</h4>
+            <p class="card__text">У Weekend этот блок полностью отсутствует. Подключение кредитных модулей позволит перехватить b2c-клиентов <span class="tag">кредит 0-0-6 через 4&nbsp;банка</span>.</p>
+          </div>
+          <div class="card card--glass reveal">
+            <div class="card__number">03</div>
+            <h4 class="card__title">Визуальный конфигуратор стола</h4>
+            <p class="card__text">На замену «сухой» фильтрации каталога — интерактивный пошаговый квиз-подборщик:</p>
+            <div class="card__steps">
+              <span class="step-pill">Размеры</span><span class="step-arrow">→</span>
+              <span class="step-pill">Тип игры</span><span class="step-arrow">→</span>
+              <span class="step-pill">Класс</span><span class="step-arrow">→</span>
+              <span class="step-pill">Сукно</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: КОНТЕНТ-СТРАТЕГИЯ -->
+    <section id="content-strategy" class="section section--light">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="eyebrow">03 — Контент</span>
+          <h2 class="section__title">Контент-стратегия</h2>
+          <p class="section__lead">Разрушение монополии Luza.ru</p>
+        </div>
+        <div class="split-layout reveal">
+          <div class="split-layout__left">
+            <p class="split-layout__intro">У&nbsp;Luza.ru мощное медиа-доминирование. Пытаться перегнать их по количеству бессмысленно — нужно <strong>переиграть в&nbsp;качестве</strong>.</p>
+            <div class="stats-row">
+              <div class="stat">
+                <span class="stat__number" data-target="670">0</span>
+                <span class="stat__label">роликов</span>
+              </div>
+              <div class="stat">
+                <span class="stat__number" data-target="38000" data-suffix="+" data-format="k">0</span>
+                <span class="stat__label">подписчиков</span>
+              </div>
+            </div>
+            <p class="stats-caption">Текущее медиа-доминирование Luza.ru</p>
+          </div>
+          <div class="split-layout__right">
+            <blockquote class="callout callout--accent reveal">
+              <span class="callout__icon">⚡</span>
+              <p><strong>Инженерия против «воды»</strong></p>
+              <p>Вместо лайфстайл-видео Weekend должен задействовать свой главный козырь — техническую экспертизу.</p>
+            </blockquote>
+          </div>
+        </div>
+        <div class="bento-grid bento-grid--2 mt-xl">
+          <div class="card card--bezel card--feature reveal">
+            <div class="card__shell"><div class="card__core">
+              <span class="pill pill--gold">Кейс</span>
+              <h3 class="card__title">BetBoom Champions League</h3>
+              <p class="card__text">Использовать статус официального оборудования турнира для стола <strong>Rasson Englon</strong>. Серия видеоматериалов с глубоким разбором:</p>
+              <ul class="card__list">
+                <li>Прецизионная геометрия сланцевых плит Ardesia</li>
+                <li>Калибровка бортовой резины U-118</li>
+                <li>Поведение сукна Iwan Simonis под нагрузкой</li>
+              </ul>
+              <p class="card__footnote">Привлечёт как клубы, так и статусных b2c-покупателей</p>
+            </div></div>
+          </div>
+          <div class="card card--bezel reveal">
+            <div class="card__shell"><div class="card__core">
+              <span class="pill pill--blue">Формат</span>
+              <h3 class="card__title">Эмбеддинг в карточки товаров</h3>
+              <p class="card__text">Короткие, ёмкие видеообзоры <strong>(до 90 секунд)</strong> — напрямую в галерею карточек товаров, где сейчас дефицит медиа-контента.</p>
+              <div class="card__visual-placeholder">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="2" y="8" width="44" height="32" rx="4" stroke="currentColor" stroke-width="1.5"/><path d="M20 18l12 6-12 6V18z" fill="currentColor" opacity="0.3"/></svg>
+                <span>90 сек. видеообзор → карточка товара</span>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: SEO -->
+    <section id="seo" class="section section--dark">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="eyebrow eyebrow--light">04 — Технологии</span>
+          <h2 class="section__title">Технологическое SEO<br>и&nbsp;«Agentic Commerce»</h2>
+          <p class="section__lead">Подготовка к поисковым системам будущего и&nbsp;ИИ-агентам</p>
+        </div>
+        <div class="diagram reveal">
+          <div class="diagram__root"><span class="diagram__root-text">Оптимизация под AI&nbsp;&&nbsp;SEO</span></div>
+          <div class="diagram__connector">
+            <div class="diagram__line-v"></div>
+            <div class="diagram__line-h"></div>
+          </div>
+          <div class="diagram__branches">
+            <div class="diagram__branch">
+              <div class="card card--glass card--diagram">
+                <h4>Техническая гигиена</h4>
+                <ul>
+                  <li>Открытие пагинации <code>?page=</code></li>
+                  <li>Ликвидация страниц 404</li>
+                  <li>Приоритет тега «Снят с&nbsp;продажи»</li>
+                </ul>
+              </div>
+            </div>
+            <div class="diagram__branch">
+              <div class="card card--glass card--diagram">
+                <h4>Семантическое доверие</h4>
+                <ul>
+                  <li>Schema.org в формате <code>JSON-LD</code></li>
+                  <li>Сбор NPS → <code>AggregateRating</code></li>
+                  <li>Сжатие главной страницы</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="action-items mt-xl">
+          <div class="action-item reveal">
+            <div class="action-item__number">1</div>
+            <div class="action-item__content">
+              <h4>Открытие каталога для ИИ и роботов</h4>
+              <p>Немедленно убрать из <code>robots.txt</code> запрет на индексацию URL с&nbsp;параметрами <code>?</code>. Если ИИ-агенты не могут просмотреть дальше первой страницы категории, для «поиска будущего» этих товаров просто не&nbsp;существует.</p>
+            </div>
+          </div>
+          <div class="action-item reveal">
+            <div class="action-item__number">2</div>
+            <div class="action-item__content">
+              <h4>Автоматизация E-E-A-T (Отзывы)</h4>
+              <p>После закрытия успешной сделки в CRM — автоматическая отправка ссылки на форму обратной связи. Отзывы подтягиваются в&nbsp;JSON-LD разметку в блок <code>AggregateRating</code>.</p>
+              <p class="action-item__note">Обойти фейковые рейтинги конкурентов за&nbsp;счёт легитимных данных.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: МАТРИЦА -->
+    <section id="matrix" class="section section--light">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="eyebrow">05 — Тактика</span>
+          <h2 class="section__title">Тактическая матрица</h2>
+          <p class="section__lead">Захват долей рынка</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table class="premium-table" id="competitorTable">
+            <thead><tr><th>Конкурент</th><th>Уязвимость</th><th>Маркетинговое действие Weekend</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><span class="pill pill--navy">«Бильярд.ру»</span></td>
+                <td>Нет Schema.org, H1 используется под акции, технологическое отставание.</td>
+                <td><strong>Mobile-First экспансия:</strong> оптимизировать вес главной страницы (908&nbsp;КБ), забрать мобильный трафик за счёт скорости и чистой SEO-структуры.</td>
+              </tr>
+              <tr>
+                <td><span class="pill pill--navy">«Бильярд №1»</span></td>
+                <td>Отсутствует тег H1, логистические проблемы, отмены заказов.</td>
+                <td>Контекстная реклама по их брендовым запросам с акцентом на <strong>гарантию сборки и жёсткие сроки</strong>.</td>
+              </tr>
+              <tr>
+                <td><span class="pill pill--navy">Ф-ка «Старт»</span></td>
+                <td>Тяжёлый сайт, отсутствие рассрочки на&nbsp;чеки до 2&nbsp;млн&nbsp;₽, бюрократия.</td>
+                <td><em>«Рассрочка на премиальные столы Rasson за 5 минут без визита в&nbsp;офис»</em>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Mobile Cards -->
+        <div class="matrix-cards">
+          <div class="card card--bezel reveal"><div class="card__shell"><div class="card__core">
+            <span class="pill pill--navy">«Бильярд.ру»</span>
+            <div class="matrix-card__row"><span class="matrix-card__label">Уязвимость</span><p>Нет Schema.org, H1 под акции, технологическое отставание.</p></div>
+            <div class="matrix-card__row"><span class="matrix-card__label matrix-card__label--action">Действие</span><p><strong>Mobile-First экспансия</strong> — забрать мобильный трафик.</p></div>
+          </div></div></div>
+          <div class="card card--bezel reveal"><div class="card__shell"><div class="card__core">
+            <span class="pill pill--navy">«Бильярд №1»</span>
+            <div class="matrix-card__row"><span class="matrix-card__label">Уязвимость</span><p>Нет H1, логистические проблемы, отмены.</p></div>
+            <div class="matrix-card__row"><span class="matrix-card__label matrix-card__label--action">Действие</span><p>Реклама с акцентом на <strong>гарантию сборки и сроки</strong>.</p></div>
+          </div></div></div>
+          <div class="card card--bezel reveal"><div class="card__shell"><div class="card__core">
+            <span class="pill pill--navy">Ф-ка «Старт»</span>
+            <div class="matrix-card__row"><span class="matrix-card__label">Уязвимость</span><p>Тяжёлый сайт, нет рассрочки до 2 млн ₽.</p></div>
+            <div class="matrix-card__row"><span class="matrix-card__label matrix-card__label--action">Действие</span><p><em>«Рассрочка на столы Rasson за 5 мин без визита»</em>.</p></div>
+          </div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <img src="logo/logo_V01_horisont.svg" alt="Weekend Billiard" class="footer__logo" width="140" height="30">
+        <p class="footer__copy">&copy; 2025 Weekend Billiard. Все права защищены.</p>
+        <a href="https://weekend-billiard.ru" class="footer__link" target="_blank" rel="noopener">weekend-billiard.ru
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
